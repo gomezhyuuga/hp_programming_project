@@ -30,42 +30,42 @@
 using namespace std;
 
 string join( vector<float>& elements, string delimiter ) {
-    stringstream ss;
-    size_t elems = elements.size(),
-           last = elems - 1;
+  stringstream ss;
+  size_t elems = elements.size(),
+         last = elems - 1;
 
-    for( size_t i = 0; i < elems; ++i ) {
-        ss << elements[i];
+  for( size_t i = 0; i < elems; ++i ) {
+    ss << elements[i];
 
-        if( i != last ) ss << delimiter;
-    }
+    if( i != last ) ss << delimiter;
+  }
 
-    return ss.str();
+  return ss.str();
 }
 
 int main( int argc, char ** argv ) {
-    //int upper_bound = std::numeric_limits<int>::max();
-    int upper_bound = 1000;
+  //int upper_bound = std::numeric_limits<int>::max();
+  int upper_bound = 1000;
 
-    random_device rd;
-    mt19937 gen(rd());
-    normal_distribution<float> gaussian_dist(0.0,1.0);
-    auto gaussian_generator = std::bind(gaussian_dist, gen);
-    vector<float> vec(1000, 0.0);
+  random_device rd;
+  mt19937 gen(rd());
+  normal_distribution<float> gaussian_dist(0.0,1.0);
+  auto gaussian_generator = std::bind(gaussian_dist, gen);
+  vector<float> vec(1000, 0.0);
 
-    for ( int i = 0; i < upper_bound; i++ ) {
-        std::generate(vec.begin(), vec.end(), gaussian_generator);
-        string histogram = join(vec, ",");
+  for ( int i = 0; i < upper_bound; i++ ) {
+    std::generate(vec.begin(), vec.end(), gaussian_generator);
+    string histogram = join(vec, ",");
 
-        std::ofstream fs(std::to_string(i) + ".txt");
-        if ( !fs ) {
-            cout << "ERROR: can not open/create file [" << i << ".txt]" << endl;
-            return 1;
-        }
-
-        fs << i << "\t" << histogram;
-        fs.close();
+    std::ofstream fs(std::to_string(i) + ".txt");
+    if ( !fs ) {
+      cout << "ERROR: can not open/create file [" << i << ".txt]" << endl;
+      return 1;
     }
 
-    cout << "Generation step is complete." << endl;
+    fs << i << "\t" << histogram;
+    fs.close();
+  }
+
+  cout << "Generation step is complete." << endl;
 }
