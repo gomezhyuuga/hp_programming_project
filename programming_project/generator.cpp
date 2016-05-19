@@ -43,29 +43,34 @@ string join( vector<float>& elements, string delimiter ) {
   return ss.str();
 }
 
-int main( int argc, char ** argv ) {
-  //int upper_bound = std::numeric_limits<int>::max();
+int main( int argc, char * argv[] ) {
+  if (argc < 2) {
+    cout << "ERROR. Invalid argument." << endl;
+    printf("Usage: %s <histogram number>\n", argv[0]);
+    return 1;
+  }
+  int to_generate = atoi(argv[1]);
+  printf("Generating histogram number %d...\n", to_generate);
+
   int upper_bound = 1000;
 
   random_device rd;
-  mt19937 gen(rd());
+  mt19937 gen(rd()); // pseudo-random generator of 32-bit nums
   normal_distribution<float> gaussian_dist(0.0,1.0);
   auto gaussian_generator = std::bind(gaussian_dist, gen);
   vector<float> vec(1000, 0.0);
 
-  for ( int i = 0; i < upper_bound; i++ ) {
-    std::generate(vec.begin(), vec.end(), gaussian_generator);
-    string histogram = join(vec, ",");
+  std::generate(vec.begin(), vec.end(), gaussian_generator);
+  string histogram = join(vec, ",");
 
-    std::ofstream fs(std::to_string(i) + ".txt");
-    if ( !fs ) {
-      cout << "ERROR: can not open/create file [" << i << ".txt]" << endl;
-      return 1;
-    }
-
-    fs << i << "\t" << histogram;
-    fs.close();
+  std::ofstream fs(std::to_string(to_generate) + ".txt");
+  if ( !fs ) {
+    cout << "ERROR: can not open/create file [" << to_generate << ".txt]" << endl;
+    return 1;
   }
+
+  fs << to_generate << "\t" << histogram;
+  fs.close();
 
   cout << "Generation step is complete." << endl;
 }
