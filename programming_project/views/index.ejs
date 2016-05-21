@@ -22,10 +22,23 @@
       <div class="container mdl-grid">
         <!--CHART CONTAINER-->
         <div class="boxed chart mdl-color--white mdl-shadow--4dp mdl-color-text--grey-800 mdl-cell mdl-cell--10-col">
-          <h3>Chart</h3>
+
+          <div id="instructions">
+            <h3>Instructions</h3>
+            <p class="mdl-color-text--grey-500">
+              Please specify the key of the data file you want to retrieve and plot.
+            </p>
+          </div>
+
           <div id="loading">
             <div class="mdl-spinner mdl-js-spinner is-active"></div>
           </div>
+
+          <div id="error" class="hidden mdl-color-text--red-500">
+            <h6>Error while loading the chart data</h6>
+            <i class="material-icons md-48">error</i>
+          </div>
+
           <div id="chart"></div>
         </div>
         <!--UI CONTAINER-->

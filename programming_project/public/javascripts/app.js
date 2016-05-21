@@ -3,12 +3,16 @@ $(function() {
   // Async form submit
   $('#histogram-form').submit(function(event) {
     event.preventDefault();
+    var key = $('#histogram_key').val();
+    if (!key) return;
+
+    $('#instructions').hide();
 
     $('#loading').show();
     $('#chart').hide();
 
-    var data = $('#histogram-form').serialize();
-    $.get('/datastore', data)
+
+    $.get('/datastore/' + key)
       .done(processData)
       .fail(sendError);
   });
@@ -29,12 +33,18 @@ function plotData(data) {
     x: data,
     type: 'histogram',
   }];
+  var key = $('#histogram_key').val();
 
   $('#loading').hide();
   $('#chart').show();
-  Plotly.newPlot('chart', chartData);
+  Plotly.newPlot('chart', chartData,
+                 {
+                   title: 'Histogram ' + key,
+                 },
+                 { displaylogo: false, });
 }
 
 function sendError(jqXHR, textStatus, errorThrown) {
   console.error(jqXHR);
+  $('#error').show();
 }

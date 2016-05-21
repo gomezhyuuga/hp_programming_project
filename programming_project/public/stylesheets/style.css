@@ -35,6 +35,9 @@ body {
 }
 
 #loading {
-  margin-top: 8em;
+  margin-top: 12em;
   display: none;
+}
+#instructions {
+  margin-top: 10em;
 }
