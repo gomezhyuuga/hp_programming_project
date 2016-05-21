@@ -11,7 +11,7 @@ function create_histogram(key) {
 }
 
 /* GET HISTOGRAM BY KEY */
-router.get('/get', function(req, res, next) {
+router.get('/datastore', function(req, res, next) {
   var key = 1;
   var filename = key + '.txt';
   fs.stat(filename, function(err, stats) {

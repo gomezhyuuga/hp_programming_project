@@ -1,18 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Example</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <meta charset="utf-8">
+    <meta name="author" content="Fernando Gómez <gomezhyuuga>">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Interactive histogram chart">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+
+    <title>HP Labs Intern Project</title>
 
     <link rel="stylesheet" href="/material-design-lite/material.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel='stylesheet' href='/stylesheets/style.css'>
   </head>
   <body>
-    <h1>Output</h1>
-    <pre>
-    <%= output %>
-    </pre>
+    <div class="demo-layout mdl-layout mdl-layout--fixed-header mdl-js-layout mdl-color--grey-100">
+      <div class="ribbon"></div>
+      <main class="main mdl-layout__content">
+      <div class="container mdl-grid">
+        <!--CHART CONTAINER-->
+        <div class="boxed chart mdl-color--white mdl-shadow--4dp mdl-color-text--grey-800 mdl-cell mdl-cell--10-col">
+          <h3>Chart</h3>
+        </div>
+        <!--UI CONTAINER-->
+        <div class="mdl-cell mdl-cell--2-col">
+          <div class="boxed mdl-color--white mdl-shadow--4dp">
+            <form action="/datastore" id="histogram-form" method="GET">
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input"
+                       type="number"
+                       id="histogram_key"
+                       name="key">
+                <label class="mdl-textfield__label" for="histogram_key">
+                  Key
+                </label>
+              </div>
+              <br>
+              <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+                Retrieve data
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <footer class="demo-footer mdl-mini-footer">
+        <div class="mdl-mini-footer--left-section">
+          Fernando Gómez &copy; 2016
+        </div>
+      </footer>
+      </main>
+    </div>
 
+    <!--SCRIPTS-->
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+            integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+            crossorigin="anonymous"></script>
     <script src="/material-design-lite/material.min.js"></script>
+    <script src="/javascripts/app.js"></script>
   </body>
 </html>
