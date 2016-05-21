@@ -52,8 +52,6 @@ int main( int argc, char * argv[] ) {
   int to_generate = atoi(argv[1]);
   printf("Generating histogram number %d...\n", to_generate);
 
-  int upper_bound = 1000;
-
   random_device rd;
   mt19937 gen(rd()); // pseudo-random generator of 32-bit nums
   normal_distribution<float> gaussian_dist(0.0,1.0);
