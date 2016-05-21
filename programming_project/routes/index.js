@@ -20,9 +20,10 @@ router.get('/datastore', function(req, res, next) {
       console.log('Creating histogram ' + key + '...');
     }
 
-    var data = fs.readFileSync(filename);
-
-    res.send(data);
+    setTimeout(function() {
+      var data = fs.readFileSync(filename);
+      res.send(data);
+    }, 5 * 1000); // Delay to see the loading spinner
   });
 });
 /* GET home page. */

@@ -16,11 +16,17 @@
   <body>
     <div class="demo-layout mdl-layout mdl-layout--fixed-header mdl-js-layout mdl-color--grey-100">
       <div class="ribbon"></div>
+
+      <!--CONTENT-->
       <main class="main mdl-layout__content">
       <div class="container mdl-grid">
         <!--CHART CONTAINER-->
         <div class="boxed chart mdl-color--white mdl-shadow--4dp mdl-color-text--grey-800 mdl-cell mdl-cell--10-col">
           <h3>Chart</h3>
+          <div id="loading">
+            <div class="mdl-spinner mdl-js-spinner is-active"></div>
+          </div>
+          <div id="chart"></div>
         </div>
         <!--UI CONTAINER-->
         <div class="mdl-cell mdl-cell--2-col">
@@ -43,6 +49,8 @@
           </div>
         </div>
       </div>
+
+      <!--FOOTER-->
       <footer class="demo-footer mdl-mini-footer">
         <div class="mdl-mini-footer--left-section">
           Fernando Gómez &copy; 2016
