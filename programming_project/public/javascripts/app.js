@@ -1,7 +1,3 @@
-var CHART_SETTINGS = {
-  displaylogo: false,
-};
-
 var app = angular.module('histogram-app', []);
 app.controller('ChartCtrl', function($scope, $http) {
   // MODEL ATTRS
@@ -36,9 +32,8 @@ app.controller('ChartCtrl', function($scope, $http) {
   // FN TO UPDATE THE CHART
   $scope.updateChart = function() {
     console.log('Updating chart...');
-    var chart = document.getElementById('chart');
-
-    var chartData = chart.data[0];
+    var chart       = document.getElementById('chart');
+    var chartData   = chart.data[0];
     chartData.xbins = $scope.settings.xbins;
     Plotly.redraw(chart);
   };
@@ -55,11 +50,9 @@ function plotData(title, data) {
   var container = document.getElementById('chart');
   var layout    = {
     title: title,
-    xaxis: {
-      dtick: 0.2,
-    },
+    xaxis: { dtick: 0.2, },
   };
-  var options   = { showlogo: false };
+  var options   = { displaylogo: false };
 
   var chartData = [{
     x: data,
