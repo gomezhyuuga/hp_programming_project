@@ -7,7 +7,7 @@ app.controller('ChartCtrl', function($scope, $http) {
   // MODEL ATTRS
   $scope.error        = false;
   $scope.data         = undefined;
-  $scope.settings     = { xbins: { start: undefined, }};
+  $scope.settings     = {xbins: { start: 0, end: 0, size: 0 }};
   $scope.key          = 1;
   $scope.loadingChart = false;
 
@@ -53,17 +53,23 @@ function processData(data) {
 
 function plotData(title, data) {
   var container = document.getElementById('chart');
-  var layout    = { title: title };
+  var layout    = {
+    title: title,
+    xaxis: {
+      dtick: 0.2,
+    },
+  };
   var options   = { showlogo: false };
 
   var chartData = [{
     x: data,
     type: 'histogram',
   }];
-  Plotly.newPlot(container, chartData, layout, options);
-  //Plotly.Plots.resize(container);
 
-  window.onresize = function() {
-      Plotly.Plots.resize(container);
-  };
+  Plotly.newPlot(container, chartData, layout, options).then(resizeChart);
+  window.onresize = resizeChart; // Responsive Chart
+}
+
+function resizeChart() {
+  Plotly.Plots.resize(document.getElementById('chart'));
 }

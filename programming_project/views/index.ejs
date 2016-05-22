@@ -13,13 +13,6 @@
       <div class="container mdl-grid">
         <!--CHART CONTAINER-->
         <div class="boxed chart mdl-color--white mdl-shadow--4dp mdl-color-text--grey-800 mdl-cell mdl-cell--10-col">
-
-          <pre class="mdl-color--grey-300 left">
-            key = {{ key | json }}
-            settings = {{ settings | json }}
-            data = {{ data | limitTo: 4 | json }}
-          </pre>
-
           <div id="instructions" ng-hide="data || loadingChart">
             <h3>Instructions</h3>
             <p class="mdl-color-text--grey-500">
