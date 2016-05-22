@@ -1,57 +1,69 @@
-$(function() {
-  console.log('IT WORKS!');
-  // Async form submit
-  $('#histogram-form').submit(function(event) {
-    event.preventDefault();
-    var key = $('#histogram_key').val();
-    if (!key) return;
+var CHART_SETTINGS = {
+  displaylogo: false,
+};
 
-    $('#instructions').hide();
+var app = angular.module('histogram-app', []);
+app.controller('ChartCtrl', function($scope, $http) {
+  // MODEL ATTRS
+  $scope.error        = false;
+  $scope.data         = undefined;
+  $scope.settings     = { xbins: { start: undefined, }};
+  $scope.key          = 1;
+  $scope.loadingChart = false;
 
-    $('#loading').show();
-    $('#chart').hide();
+  // FN TO REQUEST THE DATA
+  $scope.request = function() {
+    console.log('Requesting data with key: ' + $scope.key);
 
+    $scope.loadingChart = true;
+    var req = $http.get('/datastore/' + $scope.key);
+    req.then(function (response) {
+      $scope.data         = processData(response.data);
+      $scope.error        = false;
 
-    $.get('/datastore/' + key)
-      .done(processData)
-      .fail(sendError);
-  });
+      plotData('Histogram ' + $scope.key, $scope.data);
+
+      var chartData = document.getElementById('chart').data[0];
+      $scope.settings.xbins = chartData.xbins;
+      $scope.loadingChart = false;
+    });
+    req.catch(function (response) {
+      $scope.error        = true;
+      $scope.loadingChart = false;
+    });
+  };
+
+  // FN TO UPDATE THE CHART
+  $scope.updateChart = function() {
+    console.log('Updating chart...');
+    var chart = document.getElementById('chart');
+
+    var chartData = chart.data[0];
+    chartData.xbins = $scope.settings.xbins;
+    Plotly.redraw(chart);
+  };
 });
 
-function processData(data, textStatus, jqXHR) {
+function processData(data) {
   var dataSplit = data.split('\t');
-  var key       = dataSplit[0];
-  var info      = dataSplit[1].split(',').map(function(el) { return +el; });
-  console.log(info);
+  var info      = dataSplit[1].split(',');
 
-  plotData(info);
+  return info.map(function(el) { return +el; });
 }
 
-function plotData(data) {
-  var container = $('#chart');
+function plotData(title, data) {
+  var container = document.getElementById('chart');
+  var layout    = { title: title };
+  var options   = { showlogo: false };
+
   var chartData = [{
     x: data,
     type: 'histogram',
-    //histfunc: 'max',
-    //nbinsx: 40,
-    //xbins: {
-      //start: -10,
-      //end: 10,
-      //size: 0.01,
-    //},
   }];
-  var key = $('#histogram_key').val();
+  Plotly.newPlot(container, chartData, layout, options);
+  //Plotly.Plots.resize(container);
 
-  $('#loading').hide();
-  $('#chart').show();
-  Plotly.newPlot('chart', chartData,
-                 {
-                   title: 'Histogram ' + key,
-                 },
-                 { displaylogo: false, });
-}
-
-function sendError(jqXHR, textStatus, errorThrown) {
-  console.error(jqXHR);
-  $('#error').show();
+  window.onresize = function() {
+      Plotly.Plots.resize(container);
+  };
 }

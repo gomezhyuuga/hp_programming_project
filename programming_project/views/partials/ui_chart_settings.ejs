@@ -68,33 +68,40 @@
   <!--NBINS-X-->
   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
     <input class="mdl-textfield__input"
-           type="number"
-           id="xbins_n">
-    <label class="mdl-textfield__label" for="xbins_n">
+           type="number">
+    <label class="mdl-textfield__label">
       X BINS N
     </label>
   </div>
   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
     <input class="mdl-textfield__input"
+           ng-model="settings.xbins.start"
+           ng-model-options="{ updateOn: 'blur' }"
+           ng-change="updateChart()"
            type="number"
-           id="xbins_start">
-    <label class="mdl-textfield__label" for="xbins_start">
+           step="any">
+    <label class="mdl-textfield__label">
       START
     </label>
   </div>
   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
     <input class="mdl-textfield__input"
+           ng-model="settings.xbins.end"
+           ng-model-options="{ updateOn: 'blur' }"
+           ng-change="updateChart()"
            type="number"
-           id="xbins_end">
+           step="any">
     <label class="mdl-textfield__label" for="xbins_end">
       END
     </label>
   </div>
   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
     <input class="mdl-textfield__input"
+           ng-model="settings.xbins.size"
+           ng-model-options="{ updateOn: 'blur' }"
+           ng-change="updateChart()"
            type="number"
-           id="xbins_size"
-           name="xbins_size">
+           step="any">
     <label class="mdl-textfield__label" for="¨xbins_size">
       SIZE
     </label>

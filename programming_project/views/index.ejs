@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" ng-app>
+<html lang="en" ng-app="histogram-app">
   <head>
     <% include partials/head %>
     <title>HP Labs Intern Project</title>
   </head>
-  <body>
+  <body ng-controller="ChartCtrl">
     <div class="demo-layout mdl-layout mdl-layout--fixed-header mdl-js-layout mdl-color--grey-100">
       <div class="ribbon"></div>
 
@@ -14,23 +14,29 @@
         <!--CHART CONTAINER-->
         <div class="boxed chart mdl-color--white mdl-shadow--4dp mdl-color-text--grey-800 mdl-cell mdl-cell--10-col">
 
-          <div id="instructions">
+          <pre class="mdl-color--grey-300 left">
+            key = {{ key | json }}
+            settings = {{ settings | json }}
+            data = {{ data | limitTo: 4 | json }}
+          </pre>
+
+          <div id="instructions" ng-hide="data || loadingChart">
             <h3>Instructions</h3>
             <p class="mdl-color-text--grey-500">
             Please specify the key of the data file you want to retrieve and plot.
             </p>
           </div>
 
-          <div id="loading">
+          <div id="loading" ng-show="loadingChart">
             <div class="mdl-spinner mdl-js-spinner is-active"></div>
           </div>
 
-          <div id="error" class="hidden mdl-color-text--red-500">
+          <div id="error" class="mdl-color-text--red-500" ng-show="error">
             <h6>Error while loading the chart data</h6>
             <i class="material-icons md-48">error</i>
           </div>
 
-          <div id="chart"></div>
+          <div id="chart" ng-hide="loadingChart"></div>
         </div>
         <!--UI CONTAINER-->
         <div class="mdl-cell mdl-cell--2-col" id="settings">
@@ -45,15 +51,5 @@
       <% include partials/footer %>
       </main>
     </div>
-
-    <!--SCRIPTS-->
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js"
-            integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-            crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"
-            charset="utf-8"></script>
-    <script src="/material-design-lite/material.min.js"></script>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <script src="/javascripts/app.js"></script>
   </body>
 </html>

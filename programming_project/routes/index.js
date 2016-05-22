@@ -26,7 +26,10 @@ router.get('/datastore/:key', function(req, res, next) {
     }
 
     var data = fs.readFileSync(filename);
-    res.send(data);
+
+    setTimeout(function () {
+      res.send(data);
+    }, 2 * 1000);
   });
 });
 /* GET home page. */

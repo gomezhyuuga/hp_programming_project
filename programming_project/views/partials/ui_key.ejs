@@ -1,7 +1,8 @@
 <div class="boxed mdl-color--white mdl-shadow--4dp">
-  <form action="/datastore" id="histogram-form" method="GET">
+  <form id="histogram-form">
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-      <input class="mdl-textfield__input"
+      <input ng-model="key"
+             class="mdl-textfield__input"
              type="number"
              id="histogram_key"
              name="key">
@@ -10,7 +11,8 @@
       </label>
     </div>
     <br>
-    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored"
+      ng-click="request()">
       Retrieve data
     </button>
   </form>
