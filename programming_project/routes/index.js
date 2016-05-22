@@ -9,10 +9,16 @@ function create_histogram(key, callback) {
 
 /* GET HISTOGRAM BY KEY */
 router.get('/datastore/:key', function(req, res, next) {
-  console.log(req.params.key);
   var key      = req.params.key;
   var filename = key + '.txt';
+  var FILES    = req.app.locals.FILES;
+
+  // Return directly if it already has served before
+  if (FILES[filename]) return res.send(FILES[filename]);
+
+  // Try to retrieve the file
   fs.stat(filename, function(err, stats) {
+    console.log('Serving ' + filename + '...');
     if (err) {
       // Histogram doesn't exist. Create.
       console.log('Creating histogram ' + key + '...');
@@ -26,10 +32,9 @@ router.get('/datastore/:key', function(req, res, next) {
     }
 
     var data = fs.readFileSync(filename);
-
-    setTimeout(function () {
-      res.send(data);
-    }, 2 * 1000);
+    // Store in FILES and send it
+    FILES[filename] = data;
+    res.send(data);
   });
 });
 /* GET home page. */
