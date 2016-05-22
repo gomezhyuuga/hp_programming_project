@@ -32,6 +32,13 @@ function plotData(data) {
   var chartData = [{
     x: data,
     type: 'histogram',
+    //histfunc: 'max',
+    //nbinsx: 40,
+    //xbins: {
+      //start: -10,
+      //end: 10,
+      //size: 0.01,
+    //},
   }];
   var key = $('#histogram_key').val();
 

@@ -28,6 +28,7 @@ body {
   padding: 1.4em;
   border-radius: 2px;
   text-align: center;
+  margin-bottom: 2em;
 }
 .boxed.chart {
   padding: 2em;
@@ -40,4 +41,11 @@ body {
 }
 #instructions {
   margin-top: 10em;
+}
+
+.left { text-align: left; }
+
+label.info {
+  color: #424242 !important;
+  font-weight: bold;
 }
