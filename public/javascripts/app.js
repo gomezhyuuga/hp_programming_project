@@ -52,7 +52,8 @@ function plotData(title, data) {
     title: title,
     xaxis: { dtick: 0.2, },
   };
-  var options   = { displaylogo: false, displayModeBar: true };
+  var options   = { displaylogo: false, displayModeBar: true,
+    modeBarButtonsToRemove: ['sendDataToCloud']};
 
   var chartData = [{
     x: data,
