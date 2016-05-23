@@ -52,7 +52,7 @@ function plotData(title, data) {
     title: title,
     xaxis: { dtick: 0.2, },
   };
-  var options   = { displaylogo: false };
+  var options   = { displaylogo: false, displayModeBar: true };
 
   var chartData = [{
     x: data,
